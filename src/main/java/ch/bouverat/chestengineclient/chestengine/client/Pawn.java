@@ -8,15 +8,15 @@ public class Pawn {
     final private String pawnId;
     final private PawnType pawnType;
 
-    public Pawn(int posY, int posX, String pawnId, PawnType pawnType) {
+    public Pawn(int posY, int posX, String pawnId, PawnType pawnType, PawnColor color) {
         this.posY = posY;
         this.posX = posX;
         this.pawnId = pawnId;
         this.pawnType = pawnType;
 
-        if (pawnId.contains("B")) {
+        if (color == PawnColor.BLACK) {
             pawnColor = PawnColor.BLACK;
-            folder = "/white-pawns";
+            folder = "/black-pawns";
         } else {
             pawnColor = PawnColor.WHITE;
             folder = "/white-pawns";

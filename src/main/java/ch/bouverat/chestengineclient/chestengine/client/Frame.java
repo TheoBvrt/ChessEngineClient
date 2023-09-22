@@ -49,7 +49,7 @@ public class Frame {
         for (int i = 0; i < cellSize; i++) {
             for (int j = 0; j < cellSize; j++) {
                 if (color)
-                    graphicsContext.setFill(Color.WHITE);
+                    graphicsContext.setFill(Color.BLUEVIOLET);
                 else
                     graphicsContext.setFill(Color.PINK);
                 graphicsContext.fillRect(i + frameX, j + frameY, 1, 1);
