@@ -14,7 +14,7 @@ public class MenuController {
     @FXML
     private void joinGame () throws IOException {
         Stage menuStage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("join.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/join.fxml"));
         MenuController menuController = new MenuController();
         Scene scene = new Scene(fxmlLoader.load());
 

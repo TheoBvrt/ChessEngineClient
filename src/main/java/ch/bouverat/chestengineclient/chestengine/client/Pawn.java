@@ -3,6 +3,8 @@ package ch.bouverat.chestengineclient.chestengine.client;
 public class Pawn {
     int posY;
     int posX;
+    final PawnColor pawnColor;
+    final String folder;
     final private String pawnId;
     final private PawnType pawnType;
 
@@ -11,6 +13,14 @@ public class Pawn {
         this.posX = posX;
         this.pawnId = pawnId;
         this.pawnType = pawnType;
+
+        if (pawnId.contains("B")) {
+            pawnColor = PawnColor.BLACK;
+            folder = "/white-pawns";
+        } else {
+            pawnColor = PawnColor.WHITE;
+            folder = "/white-pawns";
+        }
     }
 
     public String getPawnId () {

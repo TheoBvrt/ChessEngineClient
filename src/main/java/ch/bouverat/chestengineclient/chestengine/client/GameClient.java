@@ -1,8 +1,12 @@
 package ch.bouverat.chestengineclient.chestengine.client;
 
+import ch.bouverat.chestengineclient.chestengine.Main;
 import ch.bouverat.chestengineclient.chestengine.network.GamePlayerRequest;
 import ch.bouverat.chestengineclient.chestengine.network.ServerRequestHandler;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
+import java.net.URL;
 import java.util.Objects;
 
 public class GameClient {
@@ -14,8 +18,11 @@ public class GameClient {
 
     public void run() {
         ServerRequestHandler serverRequestHandler = new ServerRequestHandler();
+        Frame frame = new Frame();
+        GraphicsContext graphicsContext = frame.CreateWindow();
 
         Pawn[][] gameBoard = serverRequestHandler.boardUpdateRequest();
+        frame.UpdateFrame(graphicsContext, gameBoard);
         System.out.println("Game starting...");
         for (Pawn[] pawns : gameBoard) {
             for (int j = 0; j < gameBoard.length; j++) {
