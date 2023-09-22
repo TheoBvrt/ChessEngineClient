@@ -12,12 +12,13 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 public class Frame {
-    final int cellSize = 100;
+    public Canvas canvas1;
 
     public GraphicsContext CreateWindow () {
         Stage gameStage = new Stage();
         gameStage.setTitle("Game");
         Canvas canvas = new Canvas(800, 800);
+        canvas1 = canvas;
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
         Pane root = new Pane(canvas);
@@ -36,18 +37,18 @@ public class Frame {
             for (int j = 0; j < 8; j++) {
                 DrawCell(frameY, frameX, graphicsContext, color);
                 color = !color;
-                frameX += cellSize;
+                frameX += 100;
             }
             color = !color;
             frameX = 0;
-            frameY += cellSize;
+            frameY += 100;
         }
         DrawPawn(graphicsContext, gameTab);
     }
 
     private void DrawCell(int frameY, int frameX, GraphicsContext graphicsContext, boolean color) {
-        for (int i = 0; i < cellSize; i++) {
-            for (int j = 0; j < cellSize; j++) {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
                 if (color)
                     graphicsContext.setFill(Color.BLUEVIOLET);
                 else
@@ -80,11 +81,11 @@ public class Frame {
                     assert imageUrl != null;
                     Image image = new Image(imageUrl.toExternalForm());
                     graphicsContext.drawImage(image, frameX, frameY);
-                    frameX += cellSize;
                 }
+                frameX += 100;
             }
             frameX = 18;
-            frameY += cellSize;
+            frameY += 100;
         }
     }
 }

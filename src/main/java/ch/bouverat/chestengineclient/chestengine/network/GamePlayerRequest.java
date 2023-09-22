@@ -6,8 +6,8 @@ import ch.bouverat.chestengineclient.chestengine.client.PawnType;
 
 public class GamePlayerRequest {
     public int movePawRequest(Pawn pawn, int posY, int posX, Pawn[][] board) {
-        board[pawn.getPawnPos()[0]][pawn.getPawnPos()[1]] = new Pawn(posY, posX, "000", PawnType.EMPY, PawnColor.EMPTY);
-        pawn.setPawnId(posY, posX);
+        board[pawn.getPawnPos()[0]][pawn.getPawnPos()[1]] = new Pawn(pawn.getPawnPos()[0], pawn.getPawnPos()[1], "000", PawnType.EMPY, PawnColor.EMPTY);
+        pawn.movePawn(posY, posX);
         board[posY][posX] = pawn;
         return (0);
     }

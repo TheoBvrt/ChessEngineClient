@@ -7,16 +7,10 @@
     <list default="true" id="aa2f5809-562e-4571-85b7-412fa63fbd3a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/Frame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/GameClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/PawnColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/PawnColor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/network/GamePlayerRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/network/GamePlayerRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/network/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/network/ServerRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/white-pawns/bishop.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/white-pawns/bishop.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/white-pawns/king.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/white-pawns/king.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/white-pawns/knight.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/white-pawns/knight.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/white-pawns/pawn.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/white-pawns/pawn.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/white-pawns/queen.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/white-pawns/queen.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/white-pawns/rook.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/white-pawns/rook.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>

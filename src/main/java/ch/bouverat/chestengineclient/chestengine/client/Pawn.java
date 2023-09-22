@@ -26,11 +26,6 @@ public class Pawn {
     public String getPawnId () {
         return pawnId;
     }
-    public void setPawnId(int newPosY, int newPosX) {
-        posY = newPosY;
-        posX = newPosX;
-    }
-
     public PawnType getPawnType () {
         return pawnType;
     }
