@@ -3,6 +3,7 @@ package ch.bouverat.chestengineclient.chestengine.network;
 import ch.bouverat.chestengineclient.chestengine.client.Pawn;
 import ch.bouverat.chestengineclient.chestengine.client.PawnColor;
 import ch.bouverat.chestengineclient.chestengine.client.PawnType;
+import javafx.geometry.Pos;
 
 public class GamePlayerRequest {
     public int movePawRequest(Pawn pawn, int posY, int posX, Pawn[][] board) {

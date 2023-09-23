@@ -30,10 +30,10 @@ public class ServerRequestHandler {
         newBoard[7][6] = new Pawn(7, 6, "WKT2", PawnType.KNIGHT, PawnColor.WHITE);
         newBoard[7][7] = new Pawn(7, 7, "WR2", PawnType.ROOK, PawnColor.WHITE);
         for (int i = 0; i < 8; i++) {
-            newBoard[1][i] = new Pawn(1, i, "BP" + i, PawnType.PAWN, PawnColor.BLACK);
+            newBoard[1][i] = new Pawn(1, i, "BP" + (i + 1), PawnType.PAWN, PawnColor.BLACK);
         }
         for (int i = 0; i < 8; i++) {
-            newBoard[6][i] = new Pawn(6, i, "WP" + i, PawnType.PAWN, PawnColor.WHITE);
+            newBoard[6][i] = new Pawn(6, i, "WP" + (i + 1), PawnType.PAWN, PawnColor.WHITE);
         }
         for (int y = 2; y < 6; y++) {
             for (int x = 0; x < 8; x++) {

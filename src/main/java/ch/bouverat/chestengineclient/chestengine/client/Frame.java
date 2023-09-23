@@ -6,23 +6,29 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.net.URL;
 
 public class Frame {
-    public Canvas canvas1;
+    public Canvas gameCanvas;
+    public Canvas hudCanvas;
+    public Canvas possibleMoveCanvas;
 
     public GraphicsContext CreateWindow () {
         Stage gameStage = new Stage();
         gameStage.setTitle("Game");
-        Canvas canvas = new Canvas(800, 800);
-        canvas1 = canvas;
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
-        Pane root = new Pane(canvas);
-        Scene scene = new Scene(root);
+        gameCanvas = new Canvas(800, 800);
+        hudCanvas = new Canvas(800, 800);
+        possibleMoveCanvas = new Canvas(800, 800);
+
+        GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(gameCanvas,possibleMoveCanvas ,hudCanvas);
+        Scene scene = new Scene(stackPane);
         gameStage.setScene(scene);
         gameStage.show();
         return (graphicsContext);
@@ -87,5 +93,22 @@ public class Frame {
             frameX = 18;
             frameY += 100;
         }
+    }
+
+    public void DrawOuterLine (int posY, int posX, Color color) {
+        GraphicsContext graphicsContext = hudCanvas.getGraphicsContext2D();
+
+        for (int y = 0; y < 100; y++) {
+            for (int x = 0; x < 100; x++) {
+                if ((x <= 5) || (y <= 5) || (x >= 94) || (y >= 94)) {
+                    graphicsContext.setFill(color);
+                    graphicsContext.fillRect(x + posX, y + posY, 1, 1);
+                }
+            }
+        }
+    }
+
+    public void clearDisplay (GraphicsContext graphicsContext) {
+        graphicsContext.clearRect(0, 0, 800, 800);
     }
 }

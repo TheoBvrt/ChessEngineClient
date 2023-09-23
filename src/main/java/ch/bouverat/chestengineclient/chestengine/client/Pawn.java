@@ -17,9 +17,12 @@ public class Pawn {
         if (color == PawnColor.BLACK) {
             pawnColor = PawnColor.BLACK;
             folder = "/black-pawns";
-        } else {
+        } else if (color == PawnColor.WHITE){
             pawnColor = PawnColor.WHITE;
             folder = "/white-pawns";
+        } else {
+            pawnColor = PawnColor.EMPTY;
+            folder = "empty";
         }
     }
 
