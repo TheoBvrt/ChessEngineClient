@@ -41,7 +41,8 @@ public class GameClient {
 
                 if (!posBool) {
                     frame.DrawOuterLine(mouseY, mouseX, Color.RED);
-                    if (gameBoard[mouseY / 100][mouseX / 100].getPawnType() != PawnType.EMPY) {
+                    Pawn pawnSelected = gameBoard[mouseY / 100][mouseX / 100];
+                    if (pawnSelected.getPawnType() != PawnType.EMPY && pawnSelected.getPawnColor() == playerTeam) {
                         Pawn currentPawn = gameBoard[mouseY / 100][mouseX / 100];
                         if (currentPawn.pawnColor == playerTeam && currentPawn.getPawnType() != PawnType.EMPY) {
                             pawnToMove = currentPawn;
