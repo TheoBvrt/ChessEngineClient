@@ -8,14 +8,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 import java.util.Objects;
-import java.util.Scanner;
 
 public class GameClient {
     int gameId;
     boolean posBool = false;
     Pawn pawnToMove;
 
-    PawnColor playerTeam = PawnColor.WHITE;
+    static public PawnColor playerTeam = PawnColor.WHITE;
+    static public PawnColor enemiTeam = PawnColor.BLACK;
     public GameClient (int gameId) {
         this.gameId = gameId;
     }
@@ -29,25 +29,11 @@ public class GameClient {
         Pawn[][] gameBoard = serverRequestHandler.boardUpdateRequest();
         FrameThread frameThread = new FrameThread(frame, graphicsContext, gameBoard);
         frameThread.start();
-        mouseClickController(frame, gameBoard, gamePlayerRequest);
-        Thread thread = new Thread(() -> {
-            while (true) {
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Entrer l'id du pion");
-                Pawn pawn = getPawnById(scanner.nextLine(), gameBoard);
-
-                System.out.println("Entrer la position Y :");
-                int Y = scanner.nextInt();
-                System.out.println("Entrer la position X :");
-                int X = scanner.nextInt();
-
-                gamePlayerRequest.movePawRequest(pawn, Y, X, gameBoard);
-            }
-        });
-        thread.start();
+        DisplayMove displayMove = new DisplayMove(frame.possibleMoveCanvas.getGraphicsContext2D(), gameBoard, playerTeam);
+        mouseClickController(frame, gameBoard, gamePlayerRequest,displayMove);
     }
 
-    private void mouseClickController (Frame frame, Pawn[][] gameBoard, GamePlayerRequest gamePlayerRequest) {
+    private void mouseClickController (Frame frame, Pawn[][] gameBoard, GamePlayerRequest gamePlayerRequest, DisplayMove displayMove) {
         frame.hudCanvas.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 int mouseX = ClientUtils.getHundreds((int) event.getX());
@@ -60,19 +46,20 @@ public class GameClient {
                         if (currentPawn.pawnColor == playerTeam && currentPawn.getPawnType() != PawnType.EMPY) {
                             pawnToMove = currentPawn;
                         }
-                        System.out.println(currentPawn);
-
+                        displayMove.drawMoves(currentPawn);
                     }
                 } else {
                     if (pawnToMove != null && gameBoard[mouseY / 100][mouseX / 100].pawnColor != playerTeam) {
-                        gamePlayerRequest.movePawRequest(pawnToMove, mouseY / 100, mouseX / 100, gameBoard);
+                        gamePlayerRequest.movePawnRequest(pawnToMove, mouseY / 100, mouseX / 100, gameBoard);
                         pawnToMove = null;
                     }
-                    frame.clearDisplay(frame.hudCanvas.getGraphicsContext2D());
+                    frame.clearHud();
+                    frame.clearPossibleMove();
                 }
             } else {
                 pawnToMove = null;
-                frame.clearDisplay(frame.hudCanvas.getGraphicsContext2D());
+                frame.clearHud();
+                frame.clearPossibleMove();
             }
             posBool = !posBool;
         });

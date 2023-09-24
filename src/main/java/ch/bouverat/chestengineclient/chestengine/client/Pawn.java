@@ -3,6 +3,8 @@ package ch.bouverat.chestengineclient.chestengine.client;
 public class Pawn {
     int posY;
     int posX;
+
+    int moveCount = 0;
     final PawnColor pawnColor;
     final String folder;
     final private String pawnId;
@@ -32,6 +34,9 @@ public class Pawn {
     public PawnType getPawnType () {
         return pawnType;
     }
+    public PawnColor getPawnColor () {
+        return pawnColor;
+    }
 
     public int[] getPawnPos() {
         int[] pos = new int[2];
@@ -44,5 +49,13 @@ public class Pawn {
     public void movePawn(int newPosY, int newPosX) {
         posY = newPosY;
         posX = newPosX;
+    }
+
+    public void addMoveCount () {
+        moveCount ++;
+    }
+
+    public int getMoveCount() {
+        return (moveCount);
     }
 }

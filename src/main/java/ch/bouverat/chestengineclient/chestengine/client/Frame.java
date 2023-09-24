@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -20,11 +19,9 @@ public class Frame {
     public GraphicsContext CreateWindow () {
         Stage gameStage = new Stage();
         gameStage.setTitle("Game");
-
         gameCanvas = new Canvas(800, 800);
         hudCanvas = new Canvas(800, 800);
         possibleMoveCanvas = new Canvas(800, 800);
-
         GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(gameCanvas,possibleMoveCanvas ,hudCanvas);
@@ -49,6 +46,7 @@ public class Frame {
             frameX = 0;
             frameY += 100;
         }
+
         DrawPawn(graphicsContext, gameTab);
     }
 
@@ -88,6 +86,7 @@ public class Frame {
                     Image image = new Image(imageUrl.toExternalForm());
                     graphicsContext.drawImage(image, frameX, frameY);
                 }
+
                 frameX += 100;
             }
             frameX = 18;
@@ -108,7 +107,11 @@ public class Frame {
         }
     }
 
-    public void clearDisplay (GraphicsContext graphicsContext) {
-        graphicsContext.clearRect(0, 0, 800, 800);
+    public void clearHud () {
+        hudCanvas.getGraphicsContext2D().clearRect(0, 0, 800, 800);
     }
+    public void clearPossibleMove () {
+        possibleMoveCanvas.getGraphicsContext2D().clearRect(0, 0, 800, 800);
+    }
+
 }
