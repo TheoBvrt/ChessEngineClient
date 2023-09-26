@@ -7,8 +7,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
-import java.util.Objects;
-
 public class GameClient {
     int gameId;
     boolean posBool = false;
@@ -64,22 +62,5 @@ public class GameClient {
             }
             posBool = !posBool;
         });
-    }
-
-    private Pawn getPawnById(String pawnId, Pawn[][] board) {
-        int y = 0;
-        int x = 0;
-
-        while (y < 8) {
-            while (x < 8) {
-                if (Objects.equals(board[y][x].getPawnId(), pawnId)) {
-                    return (board[y][x]);
-                }
-                x ++;
-            }
-            x = 0;
-            y ++;
-        }
-        return (null);
     }
 }

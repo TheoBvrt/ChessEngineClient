@@ -1,6 +1,7 @@
 module ch.bouverat.chestengineclient.chestengine {
     requires javafx.controls;
     requires javafx.fxml;
+    requires com.google.gson;
 
 
     opens ch.bouverat.chestengineclient.chestengine to javafx.fxml;
