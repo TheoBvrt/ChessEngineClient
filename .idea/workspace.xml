@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa2f5809-562e-4571-85b7-412fa63fbd3a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/ClientUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/ClientUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/DisplayMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/DisplayMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/GameClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/network/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/network/MoveChecker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -38,31 +38,35 @@ public class DisplayMove {
     private List<int[]> simplePawn(Pawn pawn) {
         List<int[]> movePosList = new ArrayList<>();
 
-        if (pawn.moveCount == 0) {
+        int pawnPosY = pawn.getPawnPos()[0];
+        int pawnPosX = pawn.getPawnPos()[1];
+
+        if (pawn.getMoveCount() == 0) {
             if (GameClient.playerTeam == PawnColor.WHITE) {
-                int[] newPosition = {pawn.posY - 1, pawn.posX};
-                int[] newPosition2 = {pawn.posY - 2, pawn.posX};
+                int[] newPosition = {pawnPosY - 1, pawnPosX};
+                int[] newPosition2 = {pawnPosY - 2, pawnPosX};
                 movePosList.add(newPosition);
                 if (gameBoard[newPosition[0]][newPosition[1]].getPawnType() == PawnType.EMPY) {
                     movePosList.add(newPosition2);
                 }
             } else {
-                int[] newPosition = {pawn.posY + 1, pawn.posX};
-                int[] newPosition2 = {pawn.posY + 2, pawn.posX};
+                int[] newPosition = {pawnPosY + 1, pawnPosX};
+                int[] newPosition2 = {pawnPosY + 2, pawnPosX};
                 movePosList.add(newPosition);
                 if (gameBoard[newPosition[0]][newPosition[1]].getPawnType() == PawnType.EMPY) {
                     movePosList.add(newPosition2);
                 }
             }
-        } else{
-            int[] newPositon;
+        } else {
             if (GameClient.playerTeam == PawnColor.WHITE) {
-                newPositon = new int[]{pawn.posY - 1, pawn.posX};
+                int[] newPositon = {pawnPosY - 1, pawnPosX};
+                movePosList.add(newPositon);
             } else {
-                newPositon = new int[]{pawn.posY + 1, pawn.posX};
+                int[] newPositon = {pawnPosY + 1, pawnPosX};
+                movePosList.add(newPositon);
             }
-            movePosList.add(newPositon);
         }
+        movePosList.removeIf(pos -> gameBoard[pos[0]][pos[1]].getPawnType() != PawnType.EMPY);
 
         if (GameClient.playerTeam == PawnColor.WHITE) {
             if (pawn.posX - 1 > 0 && gameBoard[pawn.posY - 1][pawn.posX - 1].getPawnColor() == GameClient.enemiTeam) {
@@ -79,9 +83,9 @@ public class DisplayMove {
                 movePosList.add(new int[]{pawn.posY + 1, pawn.posX - 1});
             }
         }
-
         return (movePosList);
     }
+
     public List<int[]> knight(Pawn pawn) {
         int pawnPosY = pawn.getPawnPos()[0];
         int pawnPosX = pawn.getPawnPos()[1];
