@@ -33,7 +33,12 @@ public class MoveChecker {
             return (checkKing());
         } else if (pawnToCheck.getPawnType() == PawnType.ROOK) {
             return (checkRook());
+        } else if (pawnToCheck.getPawnType() == PawnType.BISHOP) {
+            return (checkBishop());
+        }else if (pawnToCheck.getPawnType() == PawnType.QUEEN) {
+            return (checkQueen());
         }
+
         return (0);
     }
 
@@ -153,51 +158,88 @@ public class MoveChecker {
 
     public int checkRook() {
         List<int[]> movePosList = new ArrayList<>();
-        int pawnPosY = pawnToCheck.getPawnPos()[0] - 1;
+        int pawnPosY = pawnToCheck.getPawnPos()[0];
         int pawnPosX = pawnToCheck.getPawnPos()[1];
-        while (pawnPosY >= 0 && gameBoard[pawnPosY][pawnPosX].getPawnColor() != GameClient.playerTeam) {
-            if (gameBoard[pawnPosY][pawnPosX].getPawnColor() == GameClient.enemiTeam) {
-                movePosList.add(new int[]{pawnPosY, pawnPosX});
-                break;
+
+        int[] dRows = {-1, 0, 1, 0};
+        int[] dCols = {0, -1, 0, 1};
+
+        for (int i = 0; i < 4; i++) {
+            int currentY = pawnPosY;
+            int currentX = pawnPosX;
+
+            while (gameBoard[currentY][currentX].getPawnColor() != GameClient.enemiTeam) {
+                currentY += dRows[i];
+                currentX += dCols[i];
+                boolean isInvalid = currentY < 0 || currentY > 7 || currentX < 0 || currentX > 7;
+                if (isInvalid || gameBoard[currentY][currentX].getPawnColor() == GameClient.playerTeam) {
+                    break;
+                }
+                movePosList.add(new int[] {currentY, currentX});
             }
-            movePosList.add(new int[] {pawnPosY, pawnPosX});
-            pawnPosY --;
         }
 
-        pawnPosY = pawnToCheck.getPawnPos()[0];
-        pawnPosX = pawnToCheck.getPawnPos()[1] + 1;
-        while (pawnPosX <= 7 && gameBoard[pawnPosY][pawnPosX].getPawnColor() != GameClient.playerTeam) {
-            if (gameBoard[pawnPosY][pawnPosX].getPawnColor() == GameClient.enemiTeam) {
-                movePosList.add(new int[] {pawnPosY, pawnPosX});
-                break;
+        for (int[] pos : movePosList) {
+            if (destY == pos[0] && destX == pos[1]) {
+                return (0);
             }
-            movePosList.add(new int[] {pawnPosY, pawnPosX});
-            pawnPosX ++;
         }
 
-        pawnPosY = pawnToCheck.getPawnPos()[0];
-        pawnPosX = pawnToCheck.getPawnPos()[1] - 1;
-        while (pawnPosX >= 0 && gameBoard[pawnPosY][pawnPosX].getPawnColor() != GameClient.playerTeam) {
-            if (gameBoard[pawnPosY][pawnPosX].getPawnColor() == GameClient.enemiTeam) {
-                movePosList.add(new int[] {pawnPosY, pawnPosX});
-                break;
+        return (1);
+    }
+
+    public int checkBishop() {List<int[]> movePosList = new ArrayList<>();
+        int pawnPosY = pawnToCheck.getPawnPos()[0];
+        int pawnPosX = pawnToCheck.getPawnPos()[1];
+
+        int[] dRows = {-1, -1, 1, 1};
+        int[] dCols = {1, -1, 1, -1};
+
+        for (int i = 0; i < 4; i++) {
+            int currentY = pawnPosY;
+            int currentX = pawnPosX;
+
+            while (gameBoard[currentY][currentX].getPawnColor() != GameClient.enemiTeam) {
+                currentY += dRows[i];
+                currentX += dCols[i];
+                boolean isInvalid = currentY < 0 || currentY > 7 || currentX < 0 || currentX > 7;
+                if (isInvalid || gameBoard[currentY][currentX].getPawnColor() == GameClient.playerTeam) {
+                    break;
+                }
+                movePosList.add(new int[] {currentY, currentX});
             }
-            movePosList.add(new int[] {pawnPosY, pawnPosX});
-            pawnPosX --;
         }
 
-        pawnPosY = pawnToCheck.getPawnPos()[0] + 1;
-        pawnPosX = pawnToCheck.getPawnPos()[1];
-        while (pawnPosY <= 7 && gameBoard[pawnPosY][pawnPosX].getPawnColor() != GameClient.playerTeam) {
-            if (gameBoard[pawnPosY][pawnPosX].getPawnColor() == GameClient.enemiTeam) {
-                movePosList.add(new int[] {pawnPosY, pawnPosX});
-                break;
+        for (int[] pos : movePosList) {
+            if (destY == pos[0] && destX == pos[1]) {
+                return (0);
             }
-            movePosList.add(new int[] {pawnPosY, pawnPosX});
-            pawnPosY ++;
         }
 
-        movePosList.removeIf(pos -> pos[0] < 0 || pos[0] > 7 || pos[1] < 0 || pos[1] > 7);
+        return (1);
+    }
+
+    public int checkQueen() {List<int[]> movePosList = new ArrayList<>();
+        int pawnPosY = pawnToCheck.getPawnPos()[0];
+        int pawnPosX = pawnToCheck.getPawnPos()[1];
+
+        int[] dRows = {-1, -1, 1, 1, -1, 0, 1, 0};
+        int[] dCols = {1, -1, 1, -1, 0, -1, 0, 1};
+
+        for (int i = 0; i < 8; i++) {
+            int currentY = pawnPosY;
+            int currentX = pawnPosX;
+
+            while (gameBoard[currentY][currentX].getPawnColor() != GameClient.enemiTeam) {
+                currentY += dRows[i];
+                currentX += dCols[i];
+                boolean isInvalid = currentY < 0 || currentY > 7 || currentX < 0 || currentX > 7;
+                if (isInvalid || gameBoard[currentY][currentX].getPawnColor() == GameClient.playerTeam) {
+                    break;
+                }
+                movePosList.add(new int[] {currentY, currentX});
+            }
+        }
 
         for (int[] pos : movePosList) {
             if (destY == pos[0] && destX == pos[1]) {
