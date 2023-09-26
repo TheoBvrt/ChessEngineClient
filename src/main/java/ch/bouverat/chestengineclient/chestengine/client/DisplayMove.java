@@ -130,6 +130,7 @@ public class DisplayMove {
         movePosList.removeIf(pos -> pos[0] < 0 || pos[0] > 7 || pos[1] < 0 || pos[1] > 7);
         movePosList.removeIf(pos -> gameBoard[pos[0]][pos[1]].getPawnColor() == teamColor);
 
+
         return (movePosList);
     }
 
