@@ -2,6 +2,7 @@ module ch.bouverat.chestengineclient.chestengine {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.google.gson;
+    requires org.java_websocket;
 
 
     opens ch.bouverat.chessengineclient.chessengine to javafx.fxml;
