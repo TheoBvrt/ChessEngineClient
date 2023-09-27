@@ -12,8 +12,6 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        ServerRequestHandler serverRequestHandler = new ServerRequestHandler();
-        serverRequestHandler.getGameId();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/menu.fxml"));
         MenuController menuController = new MenuController();
         Scene scene = new Scene(fxmlLoader.load());

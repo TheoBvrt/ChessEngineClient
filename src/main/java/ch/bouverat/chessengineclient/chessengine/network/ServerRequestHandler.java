@@ -12,10 +12,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ServerRequestHandler {
-    public int gameCreationRequest() {
-        System.out.println("Sending request to server...");
-        return (5);
-    }
 
     public Pawn[][] boardUpdateRequest() {
         Pawn[][] newBoard = new Pawn[8][8];
@@ -50,8 +46,10 @@ public class ServerRequestHandler {
         return (newBoard);
     }
 
-    public String getGameId() {
+    public String gameCreationRequest() {
         try {
+
+
             String url = "http://localhost:8080/api/game/start";
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();

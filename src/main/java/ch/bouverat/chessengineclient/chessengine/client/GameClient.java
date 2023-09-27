@@ -8,13 +8,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class GameClient {
-    int gameId;
+    String gameId;
     boolean posBool = false;
     Pawn pawnToMove;
 
     static public PawnColor playerTeam = PawnColor.WHITE;
     static public PawnColor enemiTeam = PawnColor.BLACK;
-    public GameClient (int gameId) {
+    public GameClient (String gameId) {
         this.gameId = gameId;
     }
 
