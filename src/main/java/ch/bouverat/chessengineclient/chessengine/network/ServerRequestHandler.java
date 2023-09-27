@@ -1,5 +1,6 @@
 package ch.bouverat.chessengineclient.chessengine.network;
 
+import ch.bouverat.chessengineclient.chessengine.client.ClientUtils;
 import ch.bouverat.chessengineclient.chessengine.client.Pawn;
 import ch.bouverat.chessengineclient.chessengine.client.PawnColor;
 import ch.bouverat.chessengineclient.chessengine.client.PawnType;
@@ -8,6 +9,7 @@ import javafx.scene.chart.PieChart;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -48,17 +50,24 @@ public class ServerRequestHandler {
 
     public String gameCreationRequest() {
         try {
-
-
             String url = "http://localhost:8080/api/game/start";
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "text/plain");
+            con.setDoOutput(true);
+            String macAdress = ClientUtils.getMacAdress();
 
-            int respCode = con.getResponseCode();
+            try (OutputStream os = con.getOutputStream()) {
+                byte[] input = macAdress.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             StringBuilder response = new StringBuilder();
             String inputLine;
+            int respCode = con.getResponseCode();
+
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
