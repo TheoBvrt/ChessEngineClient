@@ -1,4 +1,4 @@
-package ch.bouverat.chestengineclient.chestengine.client;
+package ch.bouverat.chessengineclient.chessengine.client;
 
 public class ClientUtils {
     public static int getHundreds(int nb){

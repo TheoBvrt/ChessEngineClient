@@ -1,7 +1,7 @@
-package ch.bouverat.chestengineclient.chestengine.client;
+package ch.bouverat.chessengineclient.chessengine.client;
 
-import ch.bouverat.chestengineclient.chestengine.network.GamePlayerRequest;
-import ch.bouverat.chestengineclient.chestengine.network.ServerRequestHandler;
+import ch.bouverat.chessengineclient.chessengine.network.GamePlayerRequest;
+import ch.bouverat.chessengineclient.chessengine.network.ServerRequestHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;

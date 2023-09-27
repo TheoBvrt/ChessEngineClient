@@ -1,8 +1,8 @@
-package ch.bouverat.chestengineclient.chestengine.network;
+package ch.bouverat.chessengineclient.chessengine.network;
 
-import ch.bouverat.chestengineclient.chestengine.client.Pawn;
-import ch.bouverat.chestengineclient.chestengine.client.PawnColor;
-import ch.bouverat.chestengineclient.chestengine.client.PawnType;
+import ch.bouverat.chessengineclient.chessengine.client.Pawn;
+import ch.bouverat.chessengineclient.chessengine.client.PawnColor;
+import ch.bouverat.chessengineclient.chessengine.client.PawnType;
 
 public class GamePlayerRequest {
     public int movePawnRequest(Pawn pawn, int posY, int posX, Pawn[][] board) {

@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" prefHeight="317.0" prefWidth="556.0" spacing="20.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ch.bouverat.chestengineclient.chestengine.controller.MenuController">
+<VBox alignment="TOP_CENTER" prefHeight="317.0" prefWidth="556.0" spacing="20.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ch.bouverat.chessengineclient.chessengine.controller.MenuController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>

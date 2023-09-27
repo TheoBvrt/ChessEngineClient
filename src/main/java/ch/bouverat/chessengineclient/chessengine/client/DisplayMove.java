@@ -1,4 +1,4 @@
-package ch.bouverat.chestengineclient.chestengine.client;
+package ch.bouverat.chessengineclient.chessengine.client;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

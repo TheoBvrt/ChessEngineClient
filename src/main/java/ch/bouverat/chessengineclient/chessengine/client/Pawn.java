@@ -1,4 +1,4 @@
-package ch.bouverat.chestengineclient.chestengine.client;
+package ch.bouverat.chessengineclient.chessengine.client;
 
 public class Pawn {
     int posY;

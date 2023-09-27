@@ -1,8 +1,8 @@
-package ch.bouverat.chestengineclient.chestengine.controller;
+package ch.bouverat.chessengineclient.chessengine.controller;
 
-import ch.bouverat.chestengineclient.chestengine.client.GameClient;
-import ch.bouverat.chestengineclient.chestengine.Main;
-import ch.bouverat.chestengineclient.chestengine.network.ServerRequestHandler;
+import ch.bouverat.chessengineclient.chessengine.client.GameClient;
+import ch.bouverat.chessengineclient.chessengine.Main;
+import ch.bouverat.chessengineclient.chessengine.network.ServerRequestHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

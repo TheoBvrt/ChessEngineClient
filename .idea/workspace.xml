@@ -6,7 +6,23 @@
   <component name="ChangeListManager">
     <list default="true" id="aa2f5809-562e-4571-85b7-412fa63fbd3a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/DisplayMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/DisplayMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/ClientUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/client/ClientUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/DisplayMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/client/DisplayMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/client/Frame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/FrameThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/client/FrameThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/client/GameClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/client/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/PawnColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/client/PawnColor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/client/PawnType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/client/PawnType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/controller/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/controller/MenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/network/GamePlayerRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/network/GamePlayerRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/network/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/network/MoveChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bouverat/chestengineclient/chestengine/network/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bouverat/chessengineclient/chessengine/network/ServerRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ch/bouverat/chestengineclient/chestengine/view/join.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ch/bouverat/chessengineclient/chessengine/view/join.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ch/bouverat/chestengineclient/chestengine/view/menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ch/bouverat/chessengineclient/chessengine/view/menu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,19 +51,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/theo2/Documents/ChessEngineClient&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/theo/Documents/Perso/Java/ChessEngineClient",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.general"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/white-pawns" />
@@ -68,7 +84,7 @@
   </component>
   <component name="RunManager">
     <configuration name="ChessEngineClient" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="ch.bouverat.chestengineclient.chestengine.Main" />
+      <option name="MAIN_CLASS_NAME" value="ch.bouverat.chessengineclient.chessengine.Main" />
       <module name="ChestEngine" />
       <method v="2">
         <option name="Make" enabled="true" />

@@ -4,12 +4,12 @@ module ch.bouverat.chestengineclient.chestengine {
     requires com.google.gson;
 
 
-    opens ch.bouverat.chestengineclient.chestengine to javafx.fxml;
-    exports ch.bouverat.chestengineclient.chestengine;
-    exports ch.bouverat.chestengineclient.chestengine.controller;
-    opens ch.bouverat.chestengineclient.chestengine.controller to javafx.fxml;
-    exports ch.bouverat.chestengineclient.chestengine.network;
-    opens ch.bouverat.chestengineclient.chestengine.network to javafx.fxml;
-    exports ch.bouverat.chestengineclient.chestengine.client;
-    opens ch.bouverat.chestengineclient.chestengine.client to javafx.fxml;
+    opens ch.bouverat.chessengineclient.chessengine to javafx.fxml;
+    exports ch.bouverat.chessengineclient.chessengine;
+    exports ch.bouverat.chessengineclient.chessengine.controller;
+    opens ch.bouverat.chessengineclient.chessengine.controller to javafx.fxml;
+    exports ch.bouverat.chessengineclient.chessengine.network;
+    opens ch.bouverat.chessengineclient.chessengine.network to javafx.fxml;
+    exports ch.bouverat.chessengineclient.chessengine.client;
+    opens ch.bouverat.chessengineclient.chessengine.client to javafx.fxml;
 }
