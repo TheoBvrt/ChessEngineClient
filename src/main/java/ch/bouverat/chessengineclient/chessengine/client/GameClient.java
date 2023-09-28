@@ -8,17 +8,25 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.UUID;
 
 public class GameClient {
     boolean posBool = false;
     Pawn pawnToMove;
 
-    static public PawnColor playerTeam = PawnColor.WHITE;
-    static public PawnColor enemiTeam = PawnColor.BLACK;
+    static public PawnColor playerTeam;
+    static public PawnColor enemiTeam;
     static public String uuid;
     static public String gameId;
+    static public int playerNumber;
+
+    ClientGameManager clientGameManager;
 
 
     public void run() {
@@ -27,9 +35,87 @@ public class GameClient {
         GamePlayerRequest gamePlayerRequest = new GamePlayerRequest();
         Frame frame = new Frame();
         Pawn[][] gameBoard = serverRequestHandler.boardUpdateRequest();
-        GraphicsContext graphicsContext = frame.CreateWindow(gameBoard);
 
-        FrameThread frameThread = new FrameThread(frame, graphicsContext, gameBoard);
+        if (playerNumber == 0) {
+            try {
+                gamePlayerRequest.sendMap(gameBoard);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            String mapJson = "";
+            try {
+                String url = "http://localhost:8080/api/game/update";
+                URL obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                con.setRequestMethod("POST");
+                con.setRequestProperty("Content-Type", "text/plain");
+                con.setDoOutput(true);
+
+                try (OutputStream os = con.getOutputStream()) {
+                    byte[] input = GameClient.gameId.getBytes("utf-8");
+                    os.write(input, 0, input.length);
+                }
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                mapJson = response.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            gamePlayerRequest.getMap(gameBoard, mapJson);
+        }
+
+        GraphicsContext graphicsContext = frame.CreateWindow(gameBoard);
+        clientGameManager = new ClientGameManager();
+
+        Thread updateThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String mapJson = "";
+                while (true) {
+                    if (clientGameManager.canPlay) {
+                        try {
+                            String url = "http://localhost:8080/api/game/update";
+                            URL obj = new URL(url);
+                            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                            con.setRequestMethod("POST");
+                            con.setRequestProperty("Content-Type", "text/plain");
+                            con.setDoOutput(true);
+
+                            try (OutputStream os = con.getOutputStream()) {
+                                byte[] input = GameClient.gameId.getBytes("utf-8");
+                                os.write(input, 0, input.length);
+                            }
+
+                            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                            StringBuilder response = new StringBuilder();
+                            String inputLine;
+                            while ((inputLine = in.readLine()) != null) {
+                                response.append(inputLine);
+                            }
+                            mapJson = response.toString();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        GamePlayerRequest gamePlayerRequest = new GamePlayerRequest();
+                        gamePlayerRequest.getMap(gameBoard, mapJson);
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        updateThread.start();
+
+        FrameThread frameThread = new FrameThread(frame, graphicsContext, gameBoard, clientGameManager);
         frameThread.start();
         DisplayMove displayMove = new DisplayMove(frame.possibleMoveCanvas.getGraphicsContext2D(), gameBoard, playerTeam);
         mouseClickController(frame, gameBoard, gamePlayerRequest,displayMove);
@@ -38,7 +124,8 @@ public class GameClient {
 
     private void mouseClickController (Frame frame, Pawn[][] gameBoard, GamePlayerRequest gamePlayerRequest, DisplayMove displayMove) {
         frame.hudCanvas.setOnMouseClicked((MouseEvent event) -> {
-            if (event.getButton() == MouseButton.PRIMARY) {
+            clientGameManager.getGameInformation();
+            if (event.getButton() == MouseButton.PRIMARY && clientGameManager.canPlay) {
                 int mouseX = ClientUtils.getHundreds((int) event.getX());
                 int mouseY = ClientUtils.getHundreds((int) event.getY());
 

@@ -2,6 +2,7 @@ package ch.bouverat.chessengineclient.chessengine.controller;
 
 import ch.bouverat.chessengineclient.chessengine.client.ClientUtils;
 import ch.bouverat.chessengineclient.chessengine.client.GameClient;
+import ch.bouverat.chessengineclient.chessengine.client.PawnColor;
 import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -49,6 +50,9 @@ public class JoinController {
         if (gameId != null) {
             GameClient gameClient = new GameClient();
             GameClient.gameId = gameId;
+            GameClient.playerTeam = PawnColor.BLACK;
+            GameClient.enemiTeam = PawnColor.WHITE;
+            GameClient.playerNumber = 1;
             gameClient.run();
         }
     }
