@@ -24,7 +24,7 @@ public class Frame {
     public Canvas hudCanvas;
     public Canvas possibleMoveCanvas;
 
-    public GraphicsContext CreateWindow (Pawn[][] board) {
+    public GraphicsContext CreateWindow() {
         Stage gameStage = new Stage();
         gameStage.setTitle("Game");
         gameCanvas = new Canvas(800, 800);
@@ -32,38 +32,8 @@ public class Frame {
         possibleMoveCanvas = new Canvas(800, 800);
         GraphicsContext graphicsContext = gameCanvas.getGraphicsContext2D();
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(gameCanvas,possibleMoveCanvas ,hudCanvas);
+        stackPane.getChildren().addAll(gameCanvas, possibleMoveCanvas, hudCanvas);
         Scene scene = new Scene(stackPane);
-        scene.setOnKeyPressed(event -> {
-            String mapJson = "";
-            if (event.getCode() == javafx.scene.input.KeyCode.W) {
-                try {
-                    String url = "http://localhost:8080/api/game/update";
-                    URL obj = new URL(url);
-                    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                    con.setRequestMethod("POST");
-                    con.setRequestProperty("Content-Type", "text/plain");
-                    con.setDoOutput(true);
-
-                    try (OutputStream os = con.getOutputStream()) {
-                        byte[] input = GameClient.gameId.getBytes("utf-8");
-                        os.write(input, 0, input.length);
-                    }
-
-                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    StringBuilder response = new StringBuilder();
-                    String inputLine;
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                    mapJson = response.toString();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            GamePlayerRequest gamePlayerRequest = new GamePlayerRequest();
-            gamePlayerRequest.getMap(board, mapJson);
-        });
         gameStage.setScene(scene);
         gameStage.show();
         return (graphicsContext);
@@ -114,7 +84,7 @@ public class Frame {
                     case ROOK -> imageUrl = Main.class.getResource(currentPawn.folder + "/rook.png");
                     case KNIGHT -> imageUrl = Main.class.getResource(currentPawn.folder + "/knight.png");
                     case BISHOP -> imageUrl = Main.class.getResource(currentPawn.folder + "/bishop.png");
-                    case QUEEN ->  imageUrl = Main.class.getResource(currentPawn.folder + "/queen.png");
+                    case QUEEN -> imageUrl = Main.class.getResource(currentPawn.folder + "/queen.png");
                     case KING -> imageUrl = Main.class.getResource(currentPawn.folder + "/king.png");
                     default -> imageUrl = Main.class.getResource(currentPawn.folder + "/pawn.png");
                 }
@@ -132,7 +102,7 @@ public class Frame {
         }
     }
 
-    public void DrawOuterLine (int posY, int posX, Color color) {
+    public void DrawOuterLine(int posY, int posX, Color color) {
         GraphicsContext graphicsContext = hudCanvas.getGraphicsContext2D();
 
         for (int y = 0; y < 100; y++) {
@@ -145,10 +115,11 @@ public class Frame {
         }
     }
 
-    public void clearHud () {
+    public void clearHud() {
         hudCanvas.getGraphicsContext2D().clearRect(0, 0, 800, 800);
     }
-    public void clearPossibleMove () {
+
+    public void clearPossibleMove() {
         possibleMoveCanvas.getGraphicsContext2D().clearRect(0, 0, 800, 800);
     }
 

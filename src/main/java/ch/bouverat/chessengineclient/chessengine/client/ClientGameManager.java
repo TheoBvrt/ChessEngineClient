@@ -9,13 +9,12 @@ import java.net.URL;
 
 public class ClientGameManager {
     public boolean canPlay;
-    public int timer;
 
     public void getGameInformation() {
         try {
             getPlayerToPlay();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.fillInStackTrace();
         }
     }
 
@@ -39,7 +38,7 @@ public class ClientGameManager {
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
-            System.out.println(response);
+
             if (GameClient.playerNumber == 0) {
                 canPlay = response.toString().equals("0");
             }

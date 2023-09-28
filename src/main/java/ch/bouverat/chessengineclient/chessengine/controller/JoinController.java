@@ -1,11 +1,8 @@
 package ch.bouverat.chessengineclient.chessengine.controller;
 
-import ch.bouverat.chessengineclient.chessengine.client.ClientUtils;
 import ch.bouverat.chessengineclient.chessengine.client.GameClient;
 import ch.bouverat.chessengineclient.chessengine.client.PawnColor;
-import com.google.gson.Gson;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.BufferedReader;
@@ -29,7 +26,7 @@ public class JoinController {
 
         String gameId = inputGameId.getText();
 
-        String json = String.format("{\"gameId\":\"%s\",\"player2Ip\":\"%s\"}", gameId, ClientUtils.getMacAdress());
+        String json = String.format("{\"gameId\":\"%s\",\"player2Ip\":\"%s\"}", gameId, GameClient.uuid);
 
         try (OutputStream os = con.getOutputStream()) {
             byte[] input = json.getBytes("utf-8");
@@ -42,7 +39,7 @@ public class JoinController {
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
-            System.out.println("Réponse du serveur : " + response);
+            System.out.println(response);
         }
 
         con.disconnect();

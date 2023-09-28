@@ -17,16 +17,14 @@ import java.net.URL;
 import java.util.UUID;
 
 public class GameClient {
-    boolean posBool = false;
-    Pawn pawnToMove;
-
     static public PawnColor playerTeam;
     static public PawnColor enemiTeam;
     static public String uuid;
     static public String gameId;
     static public int playerNumber;
 
-    ClientGameManager clientGameManager;
+    private Pawn pawnToMove;
+    boolean posBool = false;
 
 
     public void run() {
@@ -40,90 +38,41 @@ public class GameClient {
             try {
                 gamePlayerRequest.sendMap(gameBoard);
             } catch (IOException e) {
-                e.printStackTrace();
+                e.fillInStackTrace();
             }
         } else {
-            String mapJson = "";
-            try {
-                String url = "http://localhost:8080/api/game/update";
-                URL obj = new URL(url);
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                con.setRequestMethod("POST");
-                con.setRequestProperty("Content-Type", "text/plain");
-                con.setDoOutput(true);
-
-                try (OutputStream os = con.getOutputStream()) {
-                    byte[] input = GameClient.gameId.getBytes("utf-8");
-                    os.write(input, 0, input.length);
-                }
-
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String inputLine;
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                mapJson = response.toString();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            String mapJson = serverRequestHandler.getMapJson();
             gamePlayerRequest.getMap(gameBoard, mapJson);
         }
 
-        GraphicsContext graphicsContext = frame.CreateWindow(gameBoard);
-        clientGameManager = new ClientGameManager();
+        GraphicsContext graphicsContext = frame.CreateWindow();
 
-        Thread updateThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String mapJson = "";
-                while (true) {
-                    if (clientGameManager.canPlay) {
-                        try {
-                            String url = "http://localhost:8080/api/game/update";
-                            URL obj = new URL(url);
-                            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                            con.setRequestMethod("POST");
-                            con.setRequestProperty("Content-Type", "text/plain");
-                            con.setDoOutput(true);
-
-                            try (OutputStream os = con.getOutputStream()) {
-                                byte[] input = GameClient.gameId.getBytes("utf-8");
-                                os.write(input, 0, input.length);
-                            }
-
-                            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                            StringBuilder response = new StringBuilder();
-                            String inputLine;
-                            while ((inputLine = in.readLine()) != null) {
-                                response.append(inputLine);
-                            }
-                            mapJson = response.toString();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        GamePlayerRequest gamePlayerRequest = new GamePlayerRequest();
-                        gamePlayerRequest.getMap(gameBoard, mapJson);
-                    }
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        Thread updateThread = new Thread(() -> {
+            String mapJson;
+            while (true) {
+                ClientGameManager newClient = new ClientGameManager();
+                newClient.getGameInformation();
+                mapJson = serverRequestHandler.getMapJson();
+                gamePlayerRequest.getMap(gameBoard, mapJson);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.fillInStackTrace();
                 }
             }
         });
-        updateThread.start();
 
-        FrameThread frameThread = new FrameThread(frame, graphicsContext, gameBoard, clientGameManager);
+        updateThread.start();
+        FrameThread frameThread = new FrameThread(frame, graphicsContext, gameBoard);
         frameThread.start();
         DisplayMove displayMove = new DisplayMove(frame.possibleMoveCanvas.getGraphicsContext2D(), gameBoard, playerTeam);
-        mouseClickController(frame, gameBoard, gamePlayerRequest,displayMove);
+        mouseClickController(frame, gameBoard, gamePlayerRequest, displayMove);
     }
 
 
-    private void mouseClickController (Frame frame, Pawn[][] gameBoard, GamePlayerRequest gamePlayerRequest, DisplayMove displayMove) {
+    private void mouseClickController(Frame frame, Pawn[][] gameBoard, GamePlayerRequest gamePlayerRequest, DisplayMove displayMove) {
         frame.hudCanvas.setOnMouseClicked((MouseEvent event) -> {
+            ClientGameManager clientGameManager = new ClientGameManager();
             clientGameManager.getGameInformation();
             if (event.getButton() == MouseButton.PRIMARY && clientGameManager.canPlay) {
                 int mouseX = ClientUtils.getHundreds((int) event.getX());
@@ -145,7 +94,7 @@ public class GameClient {
                         try {
                             gamePlayerRequest.sendMap(gameBoard);
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            e.fillInStackTrace();
                         }
                         pawnToMove = null;
                     }

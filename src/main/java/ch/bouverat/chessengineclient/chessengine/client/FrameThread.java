@@ -14,13 +14,11 @@ public class FrameThread extends AnimationTimer {
     final private Frame frame;
     final private GraphicsContext graphicsContext;
     final private Pawn[][] board;
-    final private ClientGameManager clientGameManager;
 
-    public FrameThread (Frame frame, GraphicsContext graphicsContext, Pawn[][] board, ClientGameManager clientGameManager) {
+    public FrameThread(Frame frame, GraphicsContext graphicsContext, Pawn[][] board) {
         this.frame = frame;
         this.graphicsContext = graphicsContext;
         this.board = board;
-        this.clientGameManager = clientGameManager;
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.Random;
 
 public class GamePlayerRequest {
-    public int movePawnRequest(Pawn pawn, int posY, int posX, Pawn[][] board) {
+    public void movePawnRequest(Pawn pawn, int posY, int posX, Pawn[][] board) {
         MoveChecker moveChecker = new MoveChecker(pawn, posY, posX, board);
         if (moveChecker.checkMove() == 0) {
             board[pawn.getPawnPos()[0]][pawn.getPawnPos()[1]] = new Pawn(pawn.getPawnPos()[0], pawn.getPawnPos()[1], "000", PawnType.EMPY, PawnColor.EMPTY);
@@ -22,10 +22,8 @@ public class GamePlayerRequest {
             board[posY][posX] = pawn;
             pawn.addMoveCount();
             System.out.println("Pawn has been moved !");
-            return (0);
         }
         System.out.println("Illegal move !");
-        return (1);
     }
 
     public void sendMap(Pawn[][] board) throws IOException {
@@ -68,36 +66,7 @@ public class GamePlayerRequest {
         String[][] newBoard = gson.fromJson(jsonArray, String[][].class);
         Pawn[][] boardToCopy = convertArrayToBoard(newBoard);
         for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                board[i][j] = boardToCopy[i][j];
-            }
-        }
-    }
-
-    public void randomBoard(Pawn[][] board) {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                Random random = new Random();
-                int randomint = random.nextInt(6) + 1;
-                if (randomint == 1) {
-                    board[i][j] = new Pawn(i, j, "BR1", PawnType.ROOK, PawnColor.BLACK);
-                }
-                if (randomint == 2) {
-                    board[i][j] = new Pawn(i, j, "BKT1", PawnType.KNIGHT, PawnColor.BLACK);
-                }
-                if (randomint == 3) {
-                    board[i][j] = new Pawn(i, j, "BB1", PawnType.BISHOP, PawnColor.BLACK);
-                }
-                if (randomint == 4) {
-                    board[i][j] = new Pawn(i, j, "BQ", PawnType.QUEEN, PawnColor.BLACK);
-                }
-                if (randomint == 5) {
-                    board[i][j] = new Pawn(i, j, "BK", PawnType.KING, PawnColor.BLACK);
-                }
-                if (randomint == 6) {
-                    board[i][j] = new Pawn(i, j, "BB2", PawnType.BISHOP, PawnColor.BLACK);
-                }
-            }
+            System.arraycopy(boardToCopy[i], 0, board[i], 0, board.length);
         }
     }
 

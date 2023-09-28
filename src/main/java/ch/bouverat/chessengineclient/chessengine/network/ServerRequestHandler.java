@@ -61,16 +61,42 @@ public class ServerRequestHandler {
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             StringBuilder response = new StringBuilder();
             String inputLine;
-            int respCode = con.getResponseCode();
 
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
-            //System.out.println(respCode);
             gameId = response.toString();
         } catch (Exception e) {
-            e.printStackTrace();
+            e.fillInStackTrace();
         }
         return (gameId);
+    }
+
+    public String getMapJson() {
+        String mapJson = "";
+        try {
+            String url = "http://localhost:8080/api/game/update";
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "text/plain");
+            con.setDoOutput(true);
+
+            try (OutputStream os = con.getOutputStream()) {
+                byte[] input = GameClient.gameId.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            mapJson = response.toString();
+        } catch (Exception e) {
+            e.fillInStackTrace();
+        }
+        return (mapJson);
     }
 }
