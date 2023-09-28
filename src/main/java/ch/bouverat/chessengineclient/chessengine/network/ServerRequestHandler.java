@@ -1,9 +1,6 @@
 package ch.bouverat.chessengineclient.chessengine.network;
 
-import ch.bouverat.chessengineclient.chessengine.client.ClientUtils;
-import ch.bouverat.chessengineclient.chessengine.client.Pawn;
-import ch.bouverat.chessengineclient.chessengine.client.PawnColor;
-import ch.bouverat.chessengineclient.chessengine.client.PawnType;
+import ch.bouverat.chessengineclient.chessengine.client.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -47,6 +44,7 @@ public class ServerRequestHandler {
     }
 
     public String gameCreationRequest() {
+        String gameId = "";
         try {
             String url = "http://localhost:8080/api/game/start";
             URL obj = new URL(url);
@@ -54,10 +52,9 @@ public class ServerRequestHandler {
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "text/plain");
             con.setDoOutput(true);
-            String macAdress = ClientUtils.getMacAdress();
 
             try (OutputStream os = con.getOutputStream()) {
-                byte[] input = macAdress.getBytes("utf-8");
+                byte[] input = GameClient.uuid.getBytes("utf-8");
                 os.write(input, 0, input.length);
             }
 
@@ -69,12 +66,11 @@ public class ServerRequestHandler {
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
-            System.out.println(respCode);
-            System.out.println(response);
-
+            //System.out.println(respCode);
+            gameId = response.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ("id");
+        return (gameId);
     }
 }

@@ -32,7 +32,8 @@ public class MenuController {
         String gameId = serverRequestHandler.gameCreationRequest();
 
         if (gameId != null) {
-            GameClient gameClient = new GameClient(gameId);
+            GameClient gameClient = new GameClient();
+            GameClient.gameId = gameId;
             gameClient.run();
         }
     }

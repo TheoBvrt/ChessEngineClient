@@ -1,6 +1,7 @@
 package ch.bouverat.chessengineclient.chessengine.controller;
 
 import ch.bouverat.chessengineclient.chessengine.client.ClientUtils;
+import ch.bouverat.chessengineclient.chessengine.client.GameClient;
 import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -18,7 +19,7 @@ public class JoinController {
     private TextField inputGameId;
 
     @FXML
-    private void joinGame() throws IOException {
+    public void joinGame() throws IOException {
         URL url = new URL("http://localhost:8080/api/game/join");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
@@ -44,5 +45,11 @@ public class JoinController {
         }
 
         con.disconnect();
+
+        if (gameId != null) {
+            GameClient gameClient = new GameClient();
+            GameClient.gameId = gameId;
+            gameClient.run();
+        }
     }
 }

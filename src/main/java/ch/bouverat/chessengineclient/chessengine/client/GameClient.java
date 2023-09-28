@@ -5,31 +5,36 @@ import ch.bouverat.chessengineclient.chessengine.network.ServerRequestHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+import java.util.UUID;
+
 public class GameClient {
-    String gameId;
     boolean posBool = false;
     Pawn pawnToMove;
 
     static public PawnColor playerTeam = PawnColor.WHITE;
     static public PawnColor enemiTeam = PawnColor.BLACK;
-    public GameClient (String gameId) {
-        this.gameId = gameId;
-    }
+    static public String uuid;
+    static public String gameId;
+
 
     public void run() {
         System.out.println("Game starting...");
         ServerRequestHandler serverRequestHandler = new ServerRequestHandler();
         GamePlayerRequest gamePlayerRequest = new GamePlayerRequest();
         Frame frame = new Frame();
-        GraphicsContext graphicsContext = frame.CreateWindow();
         Pawn[][] gameBoard = serverRequestHandler.boardUpdateRequest();
+        GraphicsContext graphicsContext = frame.CreateWindow(gameBoard);
+
         FrameThread frameThread = new FrameThread(frame, graphicsContext, gameBoard);
         frameThread.start();
         DisplayMove displayMove = new DisplayMove(frame.possibleMoveCanvas.getGraphicsContext2D(), gameBoard, playerTeam);
         mouseClickController(frame, gameBoard, gamePlayerRequest,displayMove);
     }
+
 
     private void mouseClickController (Frame frame, Pawn[][] gameBoard, GamePlayerRequest gamePlayerRequest, DisplayMove displayMove) {
         frame.hudCanvas.setOnMouseClicked((MouseEvent event) -> {
@@ -50,7 +55,11 @@ public class GameClient {
                 } else {
                     if (pawnToMove != null && gameBoard[mouseY / 100][mouseX / 100].pawnColor != playerTeam) {
                         gamePlayerRequest.movePawnRequest(pawnToMove, mouseY / 100, mouseX / 100, gameBoard);
-                        gamePlayerRequest.updateTab(gameBoard);
+                        try {
+                            gamePlayerRequest.sendMap(gameBoard);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         pawnToMove = null;
                     }
                     frame.clearHud();

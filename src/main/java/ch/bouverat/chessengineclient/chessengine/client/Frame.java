@@ -1,6 +1,9 @@
 package ch.bouverat.chessengineclient.chessengine.client;
 
 import ch.bouverat.chessengineclient.chessengine.Main;
+import ch.bouverat.chessengineclient.chessengine.network.GamePlayerRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,14 +12,19 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
 public class Frame {
     public Canvas gameCanvas;
     public Canvas hudCanvas;
     public Canvas possibleMoveCanvas;
 
-    public GraphicsContext CreateWindow () {
+    public GraphicsContext CreateWindow (Pawn[][] board) {
         Stage gameStage = new Stage();
         gameStage.setTitle("Game");
         gameCanvas = new Canvas(800, 800);
@@ -26,6 +34,36 @@ public class Frame {
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(gameCanvas,possibleMoveCanvas ,hudCanvas);
         Scene scene = new Scene(stackPane);
+        scene.setOnKeyPressed(event -> {
+            String mapJson = "";
+            if (event.getCode() == javafx.scene.input.KeyCode.W) {
+                try {
+                    String url = "http://localhost:8080/api/game/update";
+                    URL obj = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                    con.setRequestMethod("POST");
+                    con.setRequestProperty("Content-Type", "text/plain");
+                    con.setDoOutput(true);
+
+                    try (OutputStream os = con.getOutputStream()) {
+                        byte[] input = GameClient.gameId.getBytes("utf-8");
+                        os.write(input, 0, input.length);
+                    }
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String inputLine;
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    mapJson = response.toString();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            GamePlayerRequest gamePlayerRequest = new GamePlayerRequest();
+            gamePlayerRequest.getMap(board, mapJson);
+        });
         gameStage.setScene(scene);
         gameStage.show();
         return (graphicsContext);
