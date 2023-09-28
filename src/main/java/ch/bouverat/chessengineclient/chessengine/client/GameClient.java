@@ -2,13 +2,10 @@ package ch.bouverat.chessengineclient.chessengine.client;
 
 import ch.bouverat.chessengineclient.chessengine.network.GamePlayerRequest;
 import ch.bouverat.chessengineclient.chessengine.network.ServerRequestHandler;
-import ch.bouverat.chessengineclient.chessengine.network.WebSocket;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-
-import java.net.URI;
 
 public class GameClient {
     String gameId;
@@ -23,14 +20,6 @@ public class GameClient {
 
     public void run() {
         System.out.println("Game starting...");
-        String serverUri = "ws://localhost:8080/api/game/update";
-        WebSocket client = new WebSocket(URI.create(serverUri));
-        try {
-            client.connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         ServerRequestHandler serverRequestHandler = new ServerRequestHandler();
         GamePlayerRequest gamePlayerRequest = new GamePlayerRequest();
         Frame frame = new Frame();
@@ -61,6 +50,7 @@ public class GameClient {
                 } else {
                     if (pawnToMove != null && gameBoard[mouseY / 100][mouseX / 100].pawnColor != playerTeam) {
                         gamePlayerRequest.movePawnRequest(pawnToMove, mouseY / 100, mouseX / 100, gameBoard);
+                        gamePlayerRequest.updateTab(gameBoard);
                         pawnToMove = null;
                     }
                     frame.clearHud();
