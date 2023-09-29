@@ -29,33 +29,28 @@ public class GameClient {
 
     public void run() {
         System.out.println("Game starting...");
-        ServerRequestHandler serverRequestHandler = new ServerRequestHandler();
         GamePlayerRequest gamePlayerRequest = new GamePlayerRequest();
         Frame frame = new Frame();
-        Pawn[][] gameBoard = serverRequestHandler.boardUpdateRequest();
+        Pawn[][] gameBoard = new Pawn[8][8];
 
-        if (playerNumber == 0) {
-            try {
-                gamePlayerRequest.sendMap(gameBoard);
-            } catch (IOException e) {
-                e.fillInStackTrace();
-            }
-        } else {
-            String mapJson = serverRequestHandler.getMapJson();
-            gamePlayerRequest.getMap(gameBoard, mapJson);
-        }
+        String startingMap = ServerRequestHandler.getMapJson();
+        System.out.println(startingMap);
+        gamePlayerRequest.getMap(gameBoard, startingMap);
 
         GraphicsContext graphicsContext = frame.CreateWindow();
 
         Thread updateThread = new Thread(() -> {
-            String mapJson;
+            String mapJson = "";
             while (true) {
                 ClientGameManager newClient = new ClientGameManager();
                 newClient.getGameInformation();
-                mapJson = serverRequestHandler.getMapJson();
+                mapJson = ServerRequestHandler.getMapJson();
                 gamePlayerRequest.getMap(gameBoard, mapJson);
+                if (playerTeam == PawnColor.BLACK) {
+                    ClientUtils.reverseTab(gameBoard);
+                }
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.fillInStackTrace();
                 }
@@ -92,6 +87,8 @@ public class GameClient {
                     if (pawnToMove != null && gameBoard[mouseY / 100][mouseX / 100].pawnColor != playerTeam) {
                         gamePlayerRequest.movePawnRequest(pawnToMove, mouseY / 100, mouseX / 100, gameBoard);
                         try {
+                            if (playerTeam == PawnColor.BLACK)
+                                ClientUtils.reverseTab(gameBoard);
                             gamePlayerRequest.sendMap(gameBoard);
                         } catch (IOException e) {
                             e.fillInStackTrace();

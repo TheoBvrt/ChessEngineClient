@@ -61,10 +61,19 @@ public class Frame {
     private void DrawCell(int frameY, int frameX, GraphicsContext graphicsContext, boolean color) {
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 100; j++) {
-                if (color)
-                    graphicsContext.setFill(Color.BLUEVIOLET);
+                if (color) {
+                    if (GameClient.playerTeam == PawnColor.WHITE) {
+                        graphicsContext.setFill(Color.PINK);
+                    } else {
+                        graphicsContext.setFill(Color.BLUEVIOLET);
+                    }
+                }
                 else
-                    graphicsContext.setFill(Color.PINK);
+                    if (GameClient.playerTeam == PawnColor.WHITE) {
+                        graphicsContext.setFill(Color.BLUEVIOLET);
+                    } else {
+                        graphicsContext.setFill(Color.PINK);
+                    }
                 graphicsContext.fillRect(i + frameX, j + frameY, 1, 1);
             }
         }

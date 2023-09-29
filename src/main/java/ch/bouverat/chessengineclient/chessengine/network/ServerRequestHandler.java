@@ -3,6 +3,7 @@ package ch.bouverat.chessengineclient.chessengine.network;
 import ch.bouverat.chessengineclient.chessengine.client.*;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -10,40 +11,7 @@ import java.net.URL;
 
 public class ServerRequestHandler {
 
-    public Pawn[][] boardUpdateRequest() {
-        Pawn[][] newBoard = new Pawn[8][8];
-        newBoard[0][0] = new Pawn(0, 0, "BR1", PawnType.ROOK, PawnColor.BLACK);
-        newBoard[0][1] = new Pawn(0, 1, "BKT1", PawnType.KNIGHT, PawnColor.BLACK);
-        newBoard[0][2] = new Pawn(0, 2, "BB1", PawnType.BISHOP, PawnColor.BLACK);
-        newBoard[0][3] = new Pawn(0, 3, "BQ", PawnType.QUEEN, PawnColor.BLACK);
-        newBoard[0][4] = new Pawn(0, 4, "BK", PawnType.KING, PawnColor.BLACK);
-        newBoard[0][5] = new Pawn(0, 5, "BB2", PawnType.BISHOP, PawnColor.BLACK);
-        newBoard[0][6] = new Pawn(0, 6, "BKT2", PawnType.KNIGHT, PawnColor.BLACK);
-        newBoard[0][7] = new Pawn(0, 7, "BR2", PawnType.ROOK, PawnColor.BLACK);
-
-        newBoard[7][0] = new Pawn(7, 0, "WR1", PawnType.ROOK, PawnColor.WHITE);
-        newBoard[7][1] = new Pawn(7, 1, "WKT1", PawnType.KNIGHT, PawnColor.WHITE);
-        newBoard[7][2] = new Pawn(7, 2, "WB1", PawnType.BISHOP, PawnColor.WHITE);
-        newBoard[7][3] = new Pawn(7, 3, "WQ", PawnType.QUEEN, PawnColor.WHITE);
-        newBoard[7][4] = new Pawn(7, 4, "WK", PawnType.KING, PawnColor.WHITE);
-        newBoard[7][5] = new Pawn(7, 5, "WB2", PawnType.BISHOP, PawnColor.WHITE);
-        newBoard[7][6] = new Pawn(7, 6, "WKT2", PawnType.KNIGHT, PawnColor.WHITE);
-        newBoard[7][7] = new Pawn(7, 7, "WR2", PawnType.ROOK, PawnColor.WHITE);
-        for (int i = 0; i < 8; i++) {
-            newBoard[1][i] = new Pawn(1, i, "BP" + (i + 1), PawnType.PAWN, PawnColor.BLACK);
-        }
-        for (int i = 0; i < 8; i++) {
-            newBoard[6][i] = new Pawn(6, i, "WP" + (i + 1), PawnType.PAWN, PawnColor.WHITE);
-        }
-        for (int y = 2; y < 6; y++) {
-            for (int x = 0; x < 8; x++) {
-                newBoard[y][x] = new Pawn(y, x, "000", PawnType.EMPY, PawnColor.EMPTY);
-            }
-        }
-        return (newBoard);
-    }
-
-    public String gameCreationRequest() {
+    public static String gameCreationRequest() {
         String gameId = "";
         try {
             String url = "http://localhost:8080/api/game/start";
@@ -66,13 +34,14 @@ public class ServerRequestHandler {
                 response.append(inputLine);
             }
             gameId = response.toString();
+            con.disconnect();
         } catch (Exception e) {
             e.fillInStackTrace();
         }
         return (gameId);
     }
 
-    public String getMapJson() {
+    public static String getMapJson() {
         String mapJson = "";
         try {
             String url = "http://localhost:8080/api/game/update";
@@ -94,9 +63,44 @@ public class ServerRequestHandler {
                 response.append(inputLine);
             }
             mapJson = response.toString();
+            con.disconnect();
         } catch (Exception e) {
             e.fillInStackTrace();
         }
         return (mapJson);
+    }
+
+    public static boolean getPlayerToPlay() throws IOException {
+        boolean canPlay = false;
+        URL url = new URL("http://localhost:8080/api/game/get-player-to-play");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "text/plain");
+        con.setDoOutput(true);
+
+        String body = GameClient.gameId;
+
+        try (OutputStream os = con.getOutputStream()) {
+            byte[] input = body.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+
+            if (GameClient.playerNumber == 0) {
+                canPlay = response.toString().equals("0");
+            }
+
+            if (GameClient.playerNumber == 1) {
+                canPlay = response.toString().equals("1");
+            }
+        }
+        con.disconnect();
+        return (canPlay);
     }
 }

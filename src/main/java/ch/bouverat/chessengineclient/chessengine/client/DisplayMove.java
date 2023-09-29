@@ -46,47 +46,24 @@ public class DisplayMove {
         int pawnPosX = pawn.getPawnPos()[1];
 
         if (pawn.getMoveCount() == 0) {
-            if (GameClient.playerTeam == PawnColor.WHITE) {
-                int[] newPosition = {pawnPosY - 1, pawnPosX};
-                int[] newPosition2 = {pawnPosY - 2, pawnPosX};
-                movePosList.add(newPosition);
-                if (gameBoard[newPosition[0]][newPosition[1]].getPawnType() == PawnType.EMPY) {
-                    movePosList.add(newPosition2);
-                }
-            } else {
-                int[] newPosition = {pawnPosY + 1, pawnPosX};
-                int[] newPosition2 = {pawnPosY + 2, pawnPosX};
-                movePosList.add(newPosition);
-                if (gameBoard[newPosition[0]][newPosition[1]].getPawnType() == PawnType.EMPY) {
-                    movePosList.add(newPosition2);
-                }
+            int[] newPosition = {pawnPosY - 1, pawnPosX};
+            int[] newPosition2 = {pawnPosY - 2, pawnPosX};
+            movePosList.add(newPosition);
+            if (gameBoard[newPosition[0]][newPosition[1]].getPawnType() == PawnType.EMPY) {
+                movePosList.add(newPosition2);
             }
         } else {
-            if (GameClient.playerTeam == PawnColor.WHITE) {
-                int[] newPositon = {pawnPosY - 1, pawnPosX};
-                movePosList.add(newPositon);
-            } else {
-                int[] newPositon = {pawnPosY + 1, pawnPosX};
-                movePosList.add(newPositon);
-            }
+            int[] newPositon = {pawnPosY - 1, pawnPosX};
+            movePosList.add(newPositon);
         }
         movePosList.removeIf(pos -> gameBoard[pos[0]][pos[1]].getPawnType() != PawnType.EMPY);
-
-        if (GameClient.playerTeam == PawnColor.WHITE) {
-            if (pawn.posX - 1 > 0 && gameBoard[pawn.posY - 1][pawn.posX - 1].getPawnColor() == GameClient.enemiTeam) {
-                movePosList.add(new int[] {pawn.posY - 1, pawn.posX - 1});
-            }
-            if (pawn.posX + 1 < 7 && gameBoard[pawn.posY  - 1][pawn.posX + 1].getPawnColor() == GameClient.enemiTeam) {
-                movePosList.add(new int[] {pawn.posY - 1, pawn.posX + 1});
-            }
-        } else {
-            if (pawn.posX + 1 < 7 && gameBoard[pawn.posY + 1][pawn.posX + 1].getPawnColor() == GameClient.enemiTeam && pawn.posX > 0) {
-                movePosList.add(new int[]{pawn.posY + 1, pawn.posX + 1});
-            }
-            if (pawn.posX - 1 > 0 && gameBoard[pawn.posY + 1][pawn.posX - 1].getPawnColor() == GameClient.enemiTeam) {
-                movePosList.add(new int[]{pawn.posY + 1, pawn.posX - 1});
-            }
+        if (pawn.posX - 1 > 0 && gameBoard[pawn.posY - 1][pawn.posX - 1].getPawnColor() == GameClient.enemiTeam) {
+            movePosList.add(new int[] {pawn.posY - 1, pawn.posX - 1});
         }
+        if (pawn.posX + 1 < 7 && gameBoard[pawn.posY  - 1][pawn.posX + 1].getPawnColor() == GameClient.enemiTeam) {
+            movePosList.add(new int[] {pawn.posY - 1, pawn.posX + 1});
+        }
+
         return (movePosList);
     }
 

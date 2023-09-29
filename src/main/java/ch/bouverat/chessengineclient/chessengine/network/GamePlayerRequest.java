@@ -91,6 +91,8 @@ public class GamePlayerRequest {
     private Pawn pawnToSet(String pawnId, int Y, int X) {
         PawnColor newColorPawn = PawnColor.EMPTY;
         PawnType newPawnType = PawnType.EMPY;
+        int newY = Y;
+        int newX = X;
 
         if (pawnId.charAt(0) == 'B')
             newColorPawn = PawnColor.BLACK;
@@ -110,6 +112,6 @@ public class GamePlayerRequest {
         else if (pawnId.indexOf("P", 1) != -1)
             newPawnType = PawnType.PAWN;
 
-        return (new Pawn(Y, X, pawnId, newPawnType, newColorPawn));
+        return (new Pawn(newY, newX, pawnId, newPawnType, newColorPawn));
     }
 }

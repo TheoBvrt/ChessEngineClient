@@ -29,8 +29,7 @@ public class MenuController {
 
     @FXML
     private void createGame () {
-        ServerRequestHandler serverRequestHandler = new ServerRequestHandler();
-        String gameId = serverRequestHandler.gameCreationRequest();
+        String gameId = ServerRequestHandler.gameCreationRequest();
 
         if (gameId != null) {
 
