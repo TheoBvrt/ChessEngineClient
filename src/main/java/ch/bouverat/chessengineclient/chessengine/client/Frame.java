@@ -26,7 +26,7 @@ public class Frame {
 
     public GraphicsContext CreateWindow() {
         Stage gameStage = new Stage();
-        gameStage.setTitle("Game");
+        gameStage.setTitle("Game " + GameClient.gameId);
         gameCanvas = new Canvas(800, 800);
         hudCanvas = new Canvas(800, 800);
         possibleMoveCanvas = new Canvas(800, 800);
